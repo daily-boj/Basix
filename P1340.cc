@@ -4,8 +4,7 @@
 
 using namespace std;
 
-constexpr int DAYS[]      = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365}; // sum of days of months
-constexpr int LEAP_DAYS[] = {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366}; // +1 after Jan.
+constexpr int DAYS[] = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365}; // sum of days of months
 constexpr int YEAR = 525600; // minutes
 constexpr int DAY = 1440; // minutes
 
@@ -14,7 +13,7 @@ constexpr bool is_leap(int year) {
 }
 
 constexpr int to_days(int year, int month) {
-    if(is_leap(year)) return LEAP_DAYS[month-1];
+    if(is_leap(year) && month > 2) return DAYS[month-1] + 1;
     else return DAYS[month-1];
 }
 
@@ -37,6 +36,7 @@ int numeric_month(const string& month) {
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
+    cout.precision(10);
 
     string month;
     int day = 0;
@@ -50,9 +50,9 @@ int main() {
     cin.ignore(numeric_limits<streamsize>::max(), ':');
     cin >> minute;
 
-    int sum = 0; // im minutes
+    int sum = 0; // in minutes
     sum += to_days(year, numeric_month(month)) * DAY;
-    sum += day * DAY;
+    sum += (day-1) * DAY;
     sum += hour * 60;
     sum += minute;
 

@@ -19,12 +19,7 @@ int main() {
     }
 
     int count = 0;
-    for(int a = 1; a <= N; a++) {
-        for(int b = 1; b < a; b++) {
-            if(ban[a][b]) break;
-            for(int c = 1; c < b; c++) if(!ban[a][c] && !ban[b][c]) count++;
-        }
-    }
+    for(int a = 1; a <= N; a++) for(int b = 1; b < a; b++) if(!ban[a][b]) for(int c = 1; c < b; c++) if(!ban[a][c] && !ban[b][c]) count++;
 
     cout << count;
 }
